@@ -8,6 +8,7 @@ from typing import Any
 from dotenv import load_dotenv
 from fastapi import Request
 from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from redis_agent_kit import (
     AgentCard,
@@ -84,6 +85,8 @@ app = create_app(
     description="Small companion app showing Redis Agent Kit around a LangGraph agent.",
 )
 
+app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
 
 def _wants_html(request: Request) -> bool:
     return "text/html" in request.headers.get("accept", "")
@@ -99,15 +102,27 @@ def _task_preview(task: Any) -> str:
     return ""
 
 
+_STATUS_PILL_CLASS = {
+    "done": "pill--done",
+    "failed": "pill--failed",
+    "cancelled": "pill--failed",
+    "running": "pill--running",
+    "queued": "pill--queued",
+    "awaiting_input": "pill--awaiting",
+}
+
+
 def _tasks_html(tasks: list[Any], limit: int) -> str:
     rows = []
     for task in tasks:
-        preview = escape(_task_preview(task)[:180] or "—")
+        preview = escape(_task_preview(task)[:180] or "\u2014")
+        status_val = escape(task.status.value)
+        pill_cls = _STATUS_PILL_CLASS.get(task.status.value, "")
         rows.append(
             "<tr>"
             f"<td><a href='/tasks/{escape(task.task_id)}'><code>{escape(task.task_id)}</code></a></td>"
-            f"<td>{escape(task.status.value)}</td>"
-            f"<td><code>{escape(task.session_id or '—')}</code></td>"
+            f"<td><span class='pill {pill_cls}'>{status_val}</span></td>"
+            f"<td><code>{escape(task.session_id or '\u2014')}</code></td>"
             f"<td>{escape(task.updated_at.isoformat(timespec='seconds'))}</td>"
             f"<td>{preview}</td>"
             f"<td><a href='/tasks/{escape(task.task_id)}/stream'>stream</a></td>"
@@ -117,7 +132,33 @@ def _tasks_html(tasks: list[Any], limit: int) -> str:
         "".join(rows)
         or "<tr><td colspan='6'>No tasks yet. Submit one from <a href='/demo'>/demo</a>.</td></tr>"
     )
-    return f"<!doctype html><html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width, initial-scale=1'><title>Tasks</title><style>body{{margin:0;background:#f7f3eb;color:#211b17;font-family:Georgia,serif}}.shell{{max-width:1100px;margin:0 auto;padding:32px 20px}}.top{{display:flex;justify-content:space-between;gap:16px;align-items:end;flex-wrap:wrap;margin-bottom:20px}}.muted{{color:#6f6254}}.card{{background:#fffdf9;border:1px solid rgba(33,27,23,.12);border-radius:20px;padding:18px;overflow:auto}}table{{width:100%;border-collapse:collapse}}th,td{{padding:12px 10px;border-bottom:1px solid rgba(33,27,23,.08);text-align:left;vertical-align:top}}th{{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#6f6254}}code{{font-family:Consolas,monospace}}a{{color:#b6461f;text-decoration:none}}a:hover{{text-decoration:underline}}</style></head><body><div class='shell'><div class='top'><div><h1 style='margin:0'>Tasks</h1><p class='muted'>Showing up to {limit} tasks from Redis Agent Kit.</p></div><div><a href='/demo'>/demo</a> · <a href='/protocol'>/protocol</a></div></div><div class='card'><table><thead><tr><th>Task</th><th>Status</th><th>Session</th><th>Updated</th><th>Preview</th><th>Events</th></tr></thead><tbody>{body}</tbody></table></div></div></body></html>"
+    return (
+        "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width, initial-scale=1'>"
+        "<title>Tasks \u2014 RAK Demo</title>"
+        "<link rel='preconnect' href='https://fonts.googleapis.com'/>"
+        "<link rel='preconnect' href='https://fonts.gstatic.com' crossorigin/>"
+        "<link href='https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap' rel='stylesheet'/>"
+        "<link rel='stylesheet' href='/static/css/tokens.css'/>"
+        "<link rel='stylesheet' href='/static/css/styles.css'/>"
+        "</head><body>"
+        "<header class='site-header'>"
+        "<h1 class='site-header__label'>Agent Kit Demo</h1>"
+        "<nav class='site-header__nav'>"
+        "<a href='/demo'>Chat</a>"
+        "<a href='/tasks' class='active'>Tasks</a>"
+        "<a href='/protocol'>Protocol</a>"
+        "</nav></header>"
+        "<div class='page-wrap'>"
+        "<section class='hero'>"
+        "<div class='eyebrow'>Task List</div>"
+        f"<h1>Tasks</h1><p>Showing up to {limit} tasks from Redis Agent Kit.</p>"
+        "</section>"
+        "<div class='table-wrap'><table><thead><tr>"
+        "<th>Task</th><th>Status</th><th>Session</th><th>Updated</th><th>Preview</th><th>Events</th>"
+        f"</tr></thead><tbody>{body}</tbody></table></div>"
+        "</div></body></html>"
+    )
 
 
 @app.middleware("http")

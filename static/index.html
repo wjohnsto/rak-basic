@@ -5,464 +5,91 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RAK Demo</title>
-  <style>
-    :root {
-      --bg: #f4efe5;
-      --paper: rgba(255, 252, 246, 0.9);
-      --ink: #1f1a16;
-      --muted: #6f6254;
-      --line: rgba(31, 26, 22, 0.12);
-      --accent: #b6461f;
-      --accent-soft: #f2d4c6;
-      --shadow: 0 24px 60px rgba(60, 35, 18, 0.14);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(182, 70, 31, 0.14), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(61, 95, 82, 0.14), transparent 24%),
-        linear-gradient(180deg, #fbf7f0 0%, var(--bg) 100%);
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    }
-
-    .shell {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 32px 20px 48px;
-    }
-
-    .hero {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .eyebrow {
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font: 600 12px/1.4 "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-      color: var(--accent);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.4rem, 5vw, 4.8rem);
-      line-height: 0.94;
-      max-width: 10ch;
-    }
-
-    .hero p {
-      margin: 0;
-      max-width: 62ch;
-      color: var(--muted);
-      font-size: 1.05rem;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
-    }
-
-    .panel {
-      padding: 22px;
-    }
-
-    .panel h2,
-    .panel h3 {
-      margin: 0 0 12px;
-      font-size: 1.1rem;
-    }
-
-    .composer textarea {
-      width: 100%;
-      min-height: 132px;
-      resize: vertical;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.75);
-      color: var(--ink);
-      font: 500 1rem/1.5 "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-    }
-
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    button,
-    .pill {
-      border: 0;
-      border-radius: 999px;
-      padding: 11px 16px;
-      cursor: pointer;
-      color: var(--ink);
-      background: #efe5d8;
-      font: 600 13px/1.2 "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-    }
-
-    button.primary {
-      background: var(--accent);
-      color: #fff8f5;
-    }
-
-    button.ghost {
-      background: transparent;
-      border: 1px solid var(--line);
-    }
-
-    .status {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    .status .pill {
-      cursor: default;
-    }
-
-    .transcript {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .bubble {
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      white-space: pre-wrap;
-    }
-
-    .bubble.user {
-      background: rgba(182, 70, 31, 0.09);
-    }
-
-    .bubble.assistant {
-      background: rgba(255, 255, 255, 0.82);
-    }
-
-    .updates {
-      margin-top: 14px;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-
-    .updates li+li {
-      margin-top: 8px;
-    }
-
-    .grid-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .fact {
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.62);
-    }
-
-    .fact strong {
-      display: block;
-      margin-bottom: 6px;
-      font: 600 13px/1.2 "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-    }
-
-    code {
-      font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-      font-size: 0.92em;
-    }
-
-    .approval {
-      display: none;
-      gap: 10px;
-      margin-top: 16px;
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--accent-soft);
-    }
-
-    .approval.visible {
-      display: grid;
-    }
-
-    .tiny {
-      color: var(--muted);
-      font: 500 12px/1.5 "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/tokens.css" />
+  <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
 
 <body>
-  <div class="shell">
-    <section class="hero">
-      <div class="eyebrow">Redis Agent Kit Demo</div>
-      <p>
-        This demo shows how RAK makes async updates and tasking easier.
-      </p>
-    </section>
+  <header class="site-header">
+    <h1 class="site-header__label">Agent Kit Demo</h1>
+    <nav class="site-header__nav">
+      <a href="/demo" class="active">Chat</a>
+      <a href="/tasks">Tasks</a>
+      <a href="/protocol">Protocol</a>
+    </nav>
+  </header>
 
-    <section class="layout">
-      <div class="card panel">
-        <h2>Try The Demo</h2>
-        <div class="composer">
-          <textarea id="message"
-            placeholder="Ask about the release, or try something gated like: Delete the production cache after the blog ships."></textarea>
-        </div>
-        <div class="row" style="margin-top: 12px;">
-          <button class="pill" data-prompt="Summarize why background workers help agent reliability.">Safe
-            prompt</button>
-          <button class="pill" data-prompt="Delete the production cache after the blog ships.">Approval prompt</button>
-          <button class="primary" id="send">Run task</button>
-        </div>
+  <main class="chat-wrap">
+    <div class="chat-status">
+      <span class="pill" id="session-pill">session: pending</span>
+      <span class="pill" id="task-pill">task: none</span>
+      <span class="pill pill--idle" id="state-pill">state: idle</span>
+    </div>
 
-        <div class="status">
-          <div class="pill" id="session-pill">session: pending</div>
-          <div class="pill" id="task-pill">task: none</div>
-          <div class="pill" id="state-pill">state: idle</div>
-        </div>
-
-        <div class="approval" id="approval-box">
-          <div id="approval-text">Waiting for approval.</div>
-          <div class="row">
-            <button class="primary" id="approve">Approve</button>
-            <button class="ghost" id="reject">Cancel</button>
-          </div>
-        </div>
-
-        <div class="transcript" id="transcript"></div>
-        <ol class="updates" id="updates"></ol>
+    <div class="chat-transcript" id="transcript">
+      <div class="chat-empty" id="empty-state">
+        <svg class="chat-empty__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <div class="chat-empty__title">What can I help you with?</div>
+        <div class="chat-empty__hint">Ask about Redis Agent Kit, or try a quick prompt below to see tasking and approval flows in action.</div>
       </div>
+    </div>
 
-      <div class="card panel">
-        <h3>Features demonstrated</h3>
-        <div class="grid-list">
-          <div class="fact">
-            <strong>Task Lifecycle</strong>
-            API request creates a task quickly, then a worker handles execution out of band.
-          </div>
-          <div class="fact">
-            <strong>SSE Streaming</strong>
-            The UI listens to <code>/tasks/{id}/stream</code> while the task runs.
-          </div>
-          <div class="fact">
-            <strong>Pause And Resume</strong>
-            Gated prompts call <code>request_input()</code>, then continue after <code>submit_input()</code>.
-          </div>
-          <div class="fact">
-            <strong>Protocol Surface</strong>
-            See <a href="/protocol"><code>/protocol</code></a> for quick A2A, ACP, and MCP examples for this demo.
-          </div>
-        </div>
-
-        <h3 style="margin-top: 20px;">Useful Endpoints</h3>
-        <div class="grid-list">
-          <div class="fact"><strong>UI</strong><code>/demo</code></div>
-          <div class="fact"><strong>Protocols</strong><a href="/protocol"><code>/protocol</code></a></div>
-          <div class="fact"><strong>Task List</strong><a href="/tasks"><code>/tasks</code></a></div>
-          <div class="fact"><strong>REST</strong><code>/chat</code>, <code>/tasks/{id}</code>,
-            <code>/tasks/{id}/stream</code>
-          </div>
-          <div class="fact"><strong>A2A</strong><code>/.well-known/agent.json</code></div>
-        </div>
-
-        <p class="tiny" style="margin-top: 18px;">
-          The browser keeps a stable session id in local storage so multiple prompts use the same tasking context.
-        </p>
-
+    <div class="approval-card" id="approval-box">
+      <div class="approval-card__prompt" id="approval-text">Waiting for approval.</div>
+      <div class="approval-card__actions">
+        <button class="btn btn-primary btn-sm" id="approve">Approve</button>
+        <button class="btn btn-secondary btn-sm" id="reject">Cancel</button>
       </div>
-    </section>
-  </div>
+    </div>
 
-  <script>
-    const messageEl = document.getElementById("message");
-    const sendEl = document.getElementById("send");
-    const transcriptEl = document.getElementById("transcript");
-    const updatesEl = document.getElementById("updates");
-    const approvalBoxEl = document.getElementById("approval-box");
-    const approvalTextEl = document.getElementById("approval-text");
-    const sessionPillEl = document.getElementById("session-pill");
-    const taskPillEl = document.getElementById("task-pill");
-    const statePillEl = document.getElementById("state-pill");
+    <ol class="chat-updates" id="updates"></ol>
 
-    let activeTaskId = null;
-    let stream = null;
-    let poller = null;
-    let assistantBubble = null;
-    const sessionId = localStorage.getItem("rak-demo-session") || crypto.randomUUID();
-    localStorage.setItem("rak-demo-session", sessionId);
-    sessionPillEl.textContent = `session: ${sessionId.slice(0, 8)}`;
+    <div class="composer">
+      <div class="composer__chips">
+        <button class="btn btn-secondary btn-xs" data-prompt="Summarize why background workers help agent reliability.">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Safe prompt
+        </button>
+        <button class="btn btn-secondary btn-xs" data-prompt="Delete the production cache after the blog ships.">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Approval prompt
+        </button>
+      </div>
+      <div class="composer__row">
+        <textarea class="composer__input" id="message" rows="1"
+          placeholder="Ask something..."></textarea>
+        <button class="composer__send" id="send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+      <div class="composer__hint">Ctrl+Enter to send</div>
+    </div>
+  </main>
 
-    function setState(value) {
-      statePillEl.textContent = `state: ${value}`;
-    }
+  <template id="tpl-bubble-user">
+    <div class="bubble bubble--user"></div>
+  </template>
+  <template id="tpl-bubble-assistant">
+    <div class="bubble bubble--assistant"></div>
+  </template>
+  <template id="tpl-bubble-system">
+    <div class="bubble bubble--system"></div>
+  </template>
+  <template id="tpl-typing">
+    <div class="typing-indicator">
+      <span></span><span></span><span></span>
+    </div>
+  </template>
 
-    function resetRun() {
-      approvalBoxEl.classList.remove("visible");
-      approvalTextEl.textContent = "Waiting for approval.";
-      updatesEl.innerHTML = "";
-      assistantBubble = null;
-      if (stream) {
-        stream.close();
-        stream = null;
-      }
-      if (poller) {
-        clearInterval(poller);
-        poller = null;
-      }
-    }
-
-    function appendBubble(role, text) {
-      const bubble = document.createElement("div");
-      bubble.className = `bubble ${role}`;
-      bubble.textContent = text;
-      transcriptEl.appendChild(bubble);
-      transcriptEl.scrollTop = transcriptEl.scrollHeight;
-      return bubble;
-    }
-
-    function appendUpdate(text) {
-      const item = document.createElement("li");
-      item.textContent = text;
-      updatesEl.appendChild(item);
-    }
-
-    function openStream(taskId) {
-      stream = new EventSource(`/tasks/${taskId}/stream?events=update,token,done,failed,cancelled`);
-
-      stream.addEventListener("update", (event) => {
-        const data = JSON.parse(event.data);
-        if (data.message) appendUpdate(data.message);
-      });
-
-      stream.addEventListener("token", (event) => {
-        const data = JSON.parse(event.data);
-        if (!assistantBubble) {
-          assistantBubble = appendBubble("assistant", "");
-        }
-        assistantBubble.textContent += data.message || "";
-      });
-
-      stream.addEventListener("done", (event) => {
-        const data = JSON.parse(event.data);
-        setState("done");
-        if (data.result && data.result.response) {
-          if (!assistantBubble) {
-            assistantBubble = appendBubble("assistant", data.result.response);
-          } else {
-            assistantBubble.textContent = data.result.response;
-          }
-        }
-        if (stream) {
-          stream.close();
-          stream = null;
-        }
-        if (poller) {
-          clearInterval(poller);
-          poller = null;
-        }
-      });
-
-      stream.addEventListener("failed", (event) => {
-        const data = JSON.parse(event.data);
-        setState("failed");
-        appendBubble("assistant", data.error || "Task failed.");
-        if (stream) {
-          stream.close();
-          stream = null;
-        }
-      });
-    }
-
-    function startPolling(taskId) {
-      poller = setInterval(async () => {
-        const response = await fetch(`/tasks/${taskId}`);
-        if (!response.ok) return;
-        const task = await response.json();
-        setState(task.status);
-        if (task.status === "awaiting_input" && task.input_request) {
-          approvalTextEl.textContent = task.input_request.prompt;
-          approvalBoxEl.classList.add("visible");
-        }
-        if (["done", "failed", "cancelled"].includes(task.status) && poller) {
-          clearInterval(poller);
-          poller = null;
-        }
-      }, 900);
-    }
-
-    async function submitApproval(confirm) {
-      if (!activeTaskId) return;
-      approvalBoxEl.classList.remove("visible");
-      await fetch(`/tasks/${activeTaskId}/input`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ response: { confirm } }),
-      });
-      setState("queued");
-      appendUpdate(confirm ? "Approval submitted." : "Cancellation submitted.");
-    }
-
-    async function runTask() {
-      const message = messageEl.value.trim();
-      if (!message) return;
-
-      resetRun();
-      appendBubble("user", message);
-      messageEl.value = "";
-      setState("queued");
-
-      const response = await fetch("/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message, session_id: sessionId }),
-      });
-
-      const data = await response.json();
-      activeTaskId = data.task_id;
-      taskPillEl.textContent = `task: ${activeTaskId.slice(0, 8)}`;
-
-      openStream(activeTaskId);
-      startPolling(activeTaskId);
-    }
-
-    sendEl.addEventListener("click", runTask);
-    document.getElementById("approve").addEventListener("click", () => submitApproval(true));
-    document.getElementById("reject").addEventListener("click", () => submitApproval(false));
-
-    for (const button of document.querySelectorAll("[data-prompt]")) {
-      button.addEventListener("click", () => {
-        messageEl.value = button.dataset.prompt;
-        messageEl.focus();
-      });
-    }
-  </script>
+  <script src="/static/js/demo.js"></script>
 </body>
 
 </html>

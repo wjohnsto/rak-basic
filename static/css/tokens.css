@@ -1,0 +1,105 @@
+:root {
+  /* Fonts */
+  --primary-font: 'Space Grotesk', sans-serif;
+  --secondary-font: 'Space Mono', monospace;
+
+  /* Brand core */
+  --primary-color: #FF4438;
+  --midnight: #091A23;
+  --yellow: #DCFF1E;
+  --base-white: #FFFFFF;
+  --base-black: #000000;
+
+  /* Hyper (red) scale */
+  --hyper-04: #FD736A;
+  --hyper-05: #FF4438;
+  --hyper-06: #EB352A;
+  --hyper-07: #E4291E;
+  --hyper-08: #D1281E;
+  --hyper-09: #8A221C;
+  --hyper-10: #351D22;
+
+  /* Neutrals */
+  --black-90: #191919;
+  --black-70: #4C4C4C;
+  --black-60: #6D6E71;
+  --black-50: #808080;
+  --black-30: #B2B2B2;
+  --black-10: #E5E5E5;
+
+  /* Grey scale */
+  --grey-50: #F9FAFB;
+  --grey-20: #E9E9E9;
+  --grey-10: #FCFCFC;
+  --light-gray: #F8F8F8;
+
+  /* Dusk (blue-grey) scale */
+  --dusk: #163341;
+  --dusk-01: #F3F3F3;
+  --dusk-09: #0D212C;
+  --dusk-90: #2D4754;
+  --dusk-50: #8A99A0;
+  --dusk-30: #B9C2C6;
+  --dusk-10: #D9D9D9;
+
+  /* Yellow / Volt scale */
+  --yellow-06: #D0F41D;
+  --yellow-07: #BFE112;
+  --yellow-08: #A9CA03;
+  --yellow-09: #8CAA00;
+  --yellow-11: #4E5F02;
+  --yellow-50: #F1FFA5;
+  --yellow-10: #FBFFE8;
+
+  /* Sky blue */
+  --sky-blue: #80DBFF;
+  --sky-blue-50: #BFEDFF;
+  --sky-blue-10: #F2FBFF;
+  --sky-blue-09: #0477A5;
+
+  /* Semantic dark theme tokens */
+  --bg-default: var(--midnight);
+  --bg-surface: var(--dusk-09);
+  --bg-raised: var(--dusk);
+  --fg-default: var(--base-white);
+  --fg-body: var(--dusk-10);
+  --fg-muted: var(--dusk-30);
+  --fg-brand: var(--yellow);
+  --border: var(--dusk);
+  --border-strong: var(--dusk-90);
+  --stroke-divider: var(--dusk-50);
+
+  /* Button tokens */
+  --btn-primary-bg: var(--hyper-10);
+  --btn-primary-border: var(--hyper-05);
+  --btn-primary-text: var(--base-white);
+  --btn-primary-hover-bg: var(--hyper-09);
+  --btn-primary-hover-border: var(--hyper-06);
+  --btn-primary-active-bg: var(--hyper-08);
+  --btn-primary-active-border: var(--hyper-05);
+  --btn-secondary-bg: var(--dusk);
+  --btn-secondary-border: var(--dusk-90);
+  --btn-secondary-text: var(--base-white);
+  --btn-secondary-hover-bg: var(--dusk-90);
+  --btn-secondary-hover-border: var(--dusk-50);
+  --btn-secondary-active-bg: var(--dusk-90);
+  --btn-secondary-active-border: var(--dusk-50);
+
+  /* Spacing */
+  --space-xs: 1rem;
+  --space-sm: 1.5rem;
+  --space-md: 2.5rem;
+  --space-rg: 3rem;
+  --space-lg: 4.5rem;
+  --space-xl: 6rem;
+
+  /* Layout */
+  --container-max: 86.875rem;
+  --container-padding: 1.5rem;
+
+  /* Radii */
+  --radius-pill: 200px;
+  --radius-rounded: 5px;
+  --radius-card: 12px;
+  --radius-code: 8px;
+}

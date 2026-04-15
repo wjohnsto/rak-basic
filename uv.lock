@@ -3034,7 +3034,7 @@ requires-dist = [
     { name = "matplotlib", marker = "extra == 'benchmark'", specifier = ">=3.10.8" },
     { name = "pandas", marker = "extra == 'benchmark'", specifier = ">=3.0.2" },
     { name = "python-dotenv", specifier = ">=1.2.2" },
-    { name = "redis-agent-kit", extras = ["all"], path = "../redis-agent-kit/dist/redis_agent_kit-0.1.0.tar.gz" },
+    { name = "redis-agent-kit", extras = ["all"], path = "temp/redis_agent_kit-0.1.0.tar.gz" },
 ]
 provides-extras = ["benchmark"]
 
@@ -3053,7 +3053,7 @@ wheels = [
 [[package]]
 name = "redis-agent-kit"
 version = "0.1.0"
-source = { path = "../redis-agent-kit/dist/redis_agent_kit-0.1.0.tar.gz" }
+source = { path = "temp/redis_agent_kit-0.1.0.tar.gz" }
 dependencies = [
     { name = "httpx" },
     { name = "litellm" },

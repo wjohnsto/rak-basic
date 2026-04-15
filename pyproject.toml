@@ -18,4 +18,4 @@ benchmark = [
 ]
 
 [tool.uv.sources]
-redis-agent-kit = { path = "../redis-agent-kit/dist/redis_agent_kit-0.1.0.tar.gz" }
+redis-agent-kit = { path = "temp/redis_agent_kit-0.1.0.tar.gz" }

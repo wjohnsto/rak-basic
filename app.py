@@ -31,8 +31,9 @@ REDIS_URL = (
 PREFIX = "rak"
 QUEUE_NAME = "minimal_release_demo"
 STREAM_CONFIG = StreamConfig(enabled=True, channels={ChannelScope.TASK})
-DEMO_HTML = Path(__file__).with_name("index.html").read_text()
-PROTOCOL_HTML = Path(__file__).with_name("protocol.html").read_text()
+STATIC_DIR = Path(__file__).with_name("static")
+DEMO_HTML = (STATIC_DIR / "index.html").read_text()
+PROTOCOL_HTML = (STATIC_DIR / "protocol.html").read_text()
 
 
 def _create_kit() -> AgentKit:

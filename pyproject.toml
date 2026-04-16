@@ -8,7 +8,7 @@ dependencies = [
     "langchain-openai>=1.1.13",
     "langgraph>=1.1.6",
     "python-dotenv>=1.2.2",
-    "redis-agent-kit[all]",
+    "redis-agent-kit[all]>=0.1.0",
 ]
 
 [project.optional-dependencies]
@@ -16,6 +16,3 @@ benchmark = [
     "matplotlib>=3.10.8",
     "pandas>=3.0.2",
 ]
-
-[tool.uv.sources]
-redis-agent-kit = { path = "temp/redis_agent_kit-0.1.0.tar.gz" }

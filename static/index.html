@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
 
-<body>
+<body class="chat-page">
   <header class="site-header">
     <div class="site-header__inner">
       <h1 class="site-header__label">Agent Kit Demo</h1>
@@ -48,8 +48,6 @@
       </div>
     </div>
 
-    <ol class="chat-updates" id="updates"></ol>
-
     <div class="composer">
       <div class="composer__row">
         <textarea class="composer__input" id="message" rows="10"
@@ -76,6 +74,9 @@
     <div class="typing-indicator">
       <span></span><span></span><span></span>
     </div>
+  </template>
+  <template id="tpl-updates">
+    <ol class="chat-updates"></ol>
   </template>
 
   <script src="/static/js/demo.js"></script>

@@ -618,7 +618,7 @@ body.chat-page {
 .composer__input {
   flex: 1;
   resize: none;
-  min-height: 2.75rem;
+  min-height: 6rem;
   max-height: 10rem;
   padding: 0.625rem 1rem;
   border: 1px solid var(--border-strong);

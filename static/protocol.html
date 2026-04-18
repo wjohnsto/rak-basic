@@ -7,7 +7,9 @@
   <title>Protocol Guide &mdash; RAK Demo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/tokens.css" />
   <link rel="stylesheet" href="/static/css/styles.css" />
 </head>
@@ -28,57 +30,63 @@
 
     <!-- Hero -->
     <section class="hero">
-      <div class="eyebrow">Protocol Walkthrough</div>
       <h1>Three protocols, one demo</h1>
       <p>
         This app exposes A2A, ACP, and MCP side-by-side. A2A and ACP are HTTP
         endpoints on the FastAPI server. MCP is defined in
-        <code>mcp_server.py</code> and consumed by an MCP client as tools.
+        <code class="hero__code">mcp_server.py</code> and consumed by an MCP client as tools.
       </p>
-      <div class="hero__actions">
-        <a href="/demo" class="btn btn-primary btn-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          Try the chat
-        </a>
-        <a href="/tasks" class="btn btn-secondary btn-sm">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-          View tasks
-        </a>
-      </div>
     </section>
 
     <!-- Architecture overview -->
     <section class="architecture">
-      <h2 class="architecture__title">How it fits together</h2>
+      <h2 class="architecture__title">How it fits together:</h2>
       <p class="architecture__desc">
         External agents and clients connect through A2A or ACP over HTTP.
         The agent uses MCP tools internally for capabilities like Redis operations.
       </p>
       <div class="architecture__diagram">
         <div class="arch-node">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          <span class="arch-node__label">Client</span>
-          <span class="arch-node__sub">Browser / Agent</span>
+          <img src="/static/img/icon-user-64-white.svg" alt="" class="arch-node__icon" />
+          <div class="arch-node__text">
+            <span class="arch-node__label">Client</span>
+            <span class="arch-node__sub">[Browser &amp; user]</span>
+          </div>
         </div>
         <div class="arch-arrow">
-          <span class="arch-arrow__label">A2A / ACP</span>
+          <div class="arch-arrow__labels">
+            <span class="arch-arrow__label">A2A</span>
+            <span class="arch-arrow__label">ACP</span>
+          </div>
           <div class="arch-arrow__line arch-arrow__line--bidir"></div>
-          <span class="arch-arrow__label">HTTP JSON</span>
-        </div>
-        <div class="arch-node arch-node--center">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-          <span class="arch-node__label">FastAPI Server</span>
-          <span class="arch-node__sub">Redis Agent Kit</span>
-        </div>
-        <div class="arch-arrow">
-          <span class="arch-arrow__label">MCP</span>
-          <div class="arch-arrow__line arch-arrow__line--bidir"></div>
-          <span class="arch-arrow__label">Tools</span>
+          <div class="arch-arrow__labels">
+            <span class="arch-arrow__label">HTTP</span>
+            <span class="arch-arrow__label">JSON</span>
+          </div>
         </div>
         <div class="arch-node">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-          <span class="arch-node__label">Redis</span>
-          <span class="arch-node__sub">State &amp; Streams</span>
+          <img src="/static/img/icon-API-64-white.svg" alt="" class="arch-node__icon" />
+          <div class="arch-node__text">
+            <span class="arch-node__label">Fast API server</span>
+            <span class="arch-node__sub">[Redis Agent Kit]</span>
+          </div>
+        </div>
+        <div class="arch-arrow">
+          <div class="arch-arrow__labels">
+            <span class="arch-arrow__label">MCP</span>
+          </div>
+          <div class="arch-arrow__line arch-arrow__line--bidir"></div>
+          <div class="arch-arrow__labels">
+            <span class="arch-arrow__label">TOOLS</span>
+          </div>
+        </div>
+        <div class="arch-node">
+          <img src="/static/img/redis-logo-mark-white-outline.svg" alt=""
+            class="arch-node__icon arch-node__icon--redis" />
+          <div class="arch-node__text">
+            <span class="arch-node__label">Redis</span>
+            <span class="arch-node__sub">[State &amp; streams]</span>
+          </div>
         </div>
       </div>
     </section>
@@ -86,12 +94,10 @@
     <hr class="section-divider" />
 
     <!-- Protocol cards -->
-    <section class="grid grid--3">
+    <section class="protocol-list">
 
       <!-- A2A -->
       <article class="protocol-card">
-        <img src="/static/img/icon-messaging-64-white.svg" alt="" class="protocol-card__icon" />
-        <div class="eyebrow card__eyebrow">A2A</div>
         <h2 class="protocol-card__title">Agent-to-Agent</h2>
         <p class="protocol-card__desc">
           Discover the agent via its card, then send JSON-RPC messages to the root endpoint
@@ -99,25 +105,50 @@
         </p>
 
         <div class="code-block">
-          <div class="code-block__header">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
             <span class="code-block__label">Discovery</span>
-            <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl http://127.0.0.1:8000/.well-known/agent.json</code></pre>
           </div>
-          <pre><code>curl http://127.0.0.1:8000/.well-known/agent.json</code></pre>
         </div>
 
-        <div class="collapsible">
-          <button class="collapsible__toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            Send a message
+        <div class="code-block">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
+            <span class="code-block__label">Send a message</span>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </button>
-          <div class="collapsible__content">
-            <div class="code-block">
-              <div class="code-block__header">
-                <span class="code-block__label">message/send</span>
-                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
-              </div>
-              <pre><code>curl -X POST http://127.0.0.1:8000/ \
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl -X POST http://127.0.0.1:8000/ \
   -H 'Content-Type: application/json' \
   -d '{
     "jsonrpc":"2.0",
@@ -133,22 +164,30 @@
     },
     "id":"req-1"
   }'</code></pre>
-            </div>
           </div>
         </div>
 
-        <div class="collapsible">
-          <button class="collapsible__toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            Get a task
+        <div class="code-block">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
+            <span class="code-block__label">Get a task</span>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </button>
-          <div class="collapsible__content">
-            <div class="code-block">
-              <div class="code-block__header">
-                <span class="code-block__label">tasks/get</span>
-                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
-              </div>
-              <pre><code>curl -X POST http://127.0.0.1:8000/ \
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl -X POST http://127.0.0.1:8000/ \
   -H 'Content-Type: application/json' \
   -d '{
     "jsonrpc":"2.0",
@@ -156,15 +195,12 @@
     "params":{"id":"TASK_ID"},
     "id":"req-2"
   }'</code></pre>
-            </div>
           </div>
         </div>
       </article>
 
       <!-- ACP -->
       <article class="protocol-card">
-        <img src="/static/img/icon-API-64-white.svg" alt="" class="protocol-card__icon" />
-        <div class="eyebrow card__eyebrow">ACP</div>
         <h2 class="protocol-card__title">Agent Communication</h2>
         <p class="protocol-card__desc">
           ACP exposes an agent manifest at <code>/agents</code> and lets
@@ -172,25 +208,50 @@
         </p>
 
         <div class="code-block">
-          <div class="code-block__header">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
             <span class="code-block__label">Discovery</span>
-            <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl http://127.0.0.1:8000/agents</code></pre>
           </div>
-          <pre><code>curl http://127.0.0.1:8000/agents</code></pre>
         </div>
 
-        <div class="collapsible">
-          <button class="collapsible__toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            Create a run
+        <div class="code-block">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
+            <span class="code-block__label">Create a run</span>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </button>
-          <div class="collapsible__content">
-            <div class="code-block">
-              <div class="code-block__header">
-                <span class="code-block__label">POST /runs</span>
-                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
-              </div>
-              <pre><code>curl -X POST http://127.0.0.1:8000/runs \
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl -X POST http://127.0.0.1:8000/runs \
   -H 'Content-Type: application/json' \
   -d '{
     "agent_name":"rak-minimal-demo",
@@ -202,31 +263,36 @@
       }]
     }]
   }'</code></pre>
-            </div>
           </div>
         </div>
 
-        <div class="collapsible">
-          <button class="collapsible__toggle" aria-expanded="false" onclick="toggleCollapsible(this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            Poll a run
+        <div class="code-block">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
+            <span class="code-block__label">Poll a run</span>
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </button>
-          <div class="collapsible__content">
-            <div class="code-block">
-              <div class="code-block__header">
-                <span class="code-block__label">GET /runs/:id</span>
-                <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
-              </div>
-              <pre><code>curl http://127.0.0.1:8000/runs/RUN_ID</code></pre>
-            </div>
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>curl http://127.0.0.1:8000/runs/RUN_ID</code></pre>
           </div>
         </div>
       </article>
 
       <!-- MCP -->
       <article class="protocol-card">
-        <img src="/static/img/icon-code-64-white.svg" alt="" class="protocol-card__icon" />
-        <div class="eyebrow card__eyebrow">MCP</div>
         <h2 class="protocol-card__title">Model Context Protocol</h2>
         <p class="protocol-card__desc">
           The demo defines an MCP server in <code>mcp_server.py</code>. An MCP
@@ -234,19 +300,35 @@
         </p>
 
         <div class="code-block">
-          <div class="code-block__header">
+          <button class="code-block__header" aria-expanded="false" onclick="toggleCodeBlock(this)">
             <span class="code-block__label">Server setup</span>
-            <button class="code-block__copy" onclick="copyCode(this)">Copy</button>
-          </div>
-          <pre><code>from redis_agent_kit.mcp import create_server
+            <svg class="code-block__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+          <div class="code-block__body">
+            <button class="code-block__copy" onclick="copyCode(this)" aria-label="Copy">
+              <svg class="code-block__copy-icon code-block__copy-icon--default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+              <svg class="code-block__copy-icon code-block__copy-icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 15 2 2 4-4" />
+                <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+              </svg>
+            </button>
+            <pre><code>from redis_agent_kit.mcp import create_server
 
 server = create_server(
     redis_url="redis://localhost:6379",
     name="rak-minimal-demo",
 )</code></pre>
+          </div>
         </div>
 
-        <p class="protocol-card__desc" style="margin-top: 1rem; margin-bottom: 0; font-size: 0.8125rem;">
+        <p class="protocol-card__desc protocol-card__desc--footnote">
           Use MCP when you want a tool-oriented integration. Use A2A or ACP
           when you want HTTP-based discovery and task submission.
         </p>
@@ -256,20 +338,18 @@ server = create_server(
   </div>
 
   <script>
-    function toggleCollapsible(btn) {
+    function toggleCodeBlock(btn) {
       var expanded = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', String(!expanded));
-      var content = btn.nextElementSibling;
-      content.classList.toggle('open');
+      btn.parentElement.classList.toggle('open');
     }
 
     function copyCode(btn) {
       var pre = btn.closest('.code-block').querySelector('pre');
       var text = pre.textContent;
       navigator.clipboard.writeText(text).then(function () {
-        var orig = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(function () { btn.textContent = orig; }, 1500);
+        btn.classList.add('is-copied');
+        setTimeout(function () { btn.classList.remove('is-copied'); }, 1500);
       });
     }
   </script>

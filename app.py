@@ -103,36 +103,50 @@ def _task_preview(task: Any) -> str:
     return ""
 
 
-_STATUS_PILL_CLASS = {
-    "done": "pill--done",
-    "failed": "pill--failed",
-    "cancelled": "pill--failed",
-    "running": "pill--running",
-    "queued": "pill--queued",
-    "awaiting_input": "pill--awaiting",
+_STATUS_CLASS = {
+    "done": "task-status--done",
+    "failed": "task-status--failed",
+    "cancelled": "task-status--failed",
+    "running": "task-status--running",
+    "queued": "task-status--running",
+    "awaiting_input": "task-status--awaiting",
 }
 
 
 def _tasks_html(tasks: list[Any], limit: int) -> str:
-    rows = []
+    cards = []
     for task in tasks:
         preview = escape(_task_preview(task)[:180] or EM_DASH)
         status_val = escape(task.status.value)
-        pill_cls = _STATUS_PILL_CLASS.get(task.status.value, "")
-        rows.append(
-            "<tr>"
-            f"<td><a href='/tasks/{escape(task.task_id)}'><code>{escape(task.task_id)}</code></a></td>"
-            f"<td><span class='pill {pill_cls}'>{status_val}</span></td>"
-            f"<td><code>{escape(task.session_id or EM_DASH)}</code></td>"
-            f"<td>{escape(task.updated_at.isoformat(timespec='seconds'))}</td>"
-            f"<td>{preview}</td>"
-            f"<td><a href='/tasks/{escape(task.task_id)}/stream'>stream</a></td>"
-            "</tr>"
+        status_cls = _STATUS_CLASS.get(task.status.value, "")
+        task_id = escape(task.task_id)
+        cards.append(
+            "<div class='task-card'>"
+            f"<div class='task-card__cell' data-label='Task'>"
+            f"<a class='task-card__id' href='/tasks/{task_id}'><code>{task_id}</code></a>"
+            "</div>"
+            f"<div class='task-card__cell' data-label='Status'>"
+            f"<span class='task-status {status_cls}'>{status_val}</span>"
+            "</div>"
+            f"<div class='task-card__cell' data-label='Updated'>"
+            f"<span class='task-card__time'>{escape(task.updated_at.isoformat(timespec='seconds'))}</span>"
+            "</div>"
+            f"<div class='task-card__cell' data-label='Preview'>"
+            f"<span class='task-card__preview'>{preview}</span>"
+            "</div>"
+            f"<div class='task-card__cell' data-label='Events'>"
+            f"<a class='task-card__stream' href='/tasks/{task_id}/stream'>Stream</a>"
+            "</div>"
+            "</div>"
         )
-    body = (
-        "".join(rows)
-        or "<tr><td colspan='6'>No tasks yet. Submit one from <a href='/demo'>/demo</a>.</td></tr>"
-    )
+    if cards:
+        body = "".join(cards)
+    else:
+        body = (
+            "<div class='task-card task-card--empty'>"
+            "No tasks yet. Submit one from <a href='/demo'>/demo</a>."
+            "</div>"
+        )
     return (
         "<!doctype html><html lang='en'><head><meta charset='utf-8'>"
         "<meta name='viewport' content='width=device-width, initial-scale=1'>"
@@ -153,12 +167,18 @@ def _tasks_html(tasks: list[Any], limit: int) -> str:
         "</nav></div></header>"
         "<div class='page-wrap'>"
         "<section class='hero'>"
-        "<div class='eyebrow'>Task List</div>"
-        f"<h1>Tasks</h1><p>Showing up to {limit} tasks from Redis Agent Kit.</p>"
+        f"<p>Showing up to {limit} tasks</p>"
         "</section>"
-        "<div class='table-wrap'><table><thead><tr>"
-        "<th>Task</th><th>Status</th><th>Session</th><th>Updated</th><th>Preview</th><th>Events</th>"
-        f"</tr></thead><tbody>{body}</tbody></table></div>"
+        "<div class='tasks-list'>"
+        "<div class='tasks-list__header' role='row'>"
+        "<span role='columnheader'>Task</span>"
+        "<span role='columnheader'>Status</span>"
+        "<span role='columnheader'>Updated</span>"
+        "<span role='columnheader'>Preview</span>"
+        "<span role='columnheader'>Events</span>"
+        "</div>"
+        f"{body}"
+        "</div>"
         "</div></body></html>"
     )
 
